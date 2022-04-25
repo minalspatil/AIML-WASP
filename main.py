@@ -69,7 +69,7 @@ def next_state(st, action):
 
     return new
 
-#   returns a room with dirt on 'p' percent randomly chosen points
+#returns a room with dirt on 'p' percent randomly chosen points
 def dirt_generator(p):
     room = []
     for i in range(room_size):
@@ -212,7 +212,7 @@ if __name__ == "__main__":
 
         cost1 = 0
         cost2 = 0
-        iterations = 2
+        iterations = 10
         for i in range(iterations):
             ran = state(dirt_generator(dp),(0,0),0,'')
             stt1, tm1 = breadth_first_search(st)
@@ -228,9 +228,22 @@ if __name__ == "__main__":
             stt1, tm1 = iterative_deepening_search(st)
             timelist.append(tm1)
 
-        print("Graph")
+        print("Graph IDDFS")
         plt.plot(timelist)
-        plt.ylabel("Time Taken")
-        plt.xlabel("Percentage of Dirt")
-        plt.axis([0, 50, 0, 15])
+        plt.ylabel("Time Taken (IDDFS)")
+        plt.xlabel("Percentage of Dirt (IDDFS)")
+        plt.axis([0, 50, 0, 10])
+        plt.show()
+        
+        timelist_1 = []
+        for i in range(2,40):
+            st_1 = state(dirt_generator(i),(0,0),0,'')
+            stt_1, tm_1 = breadth_first_search(st_1)
+            timelist_1.append(tm_1)
+        
+        print("Graph BFS")
+        plt.plot(timelist_1)
+        plt.ylabel("Time Taken(BFS)")
+        plt.xlabel("Dirt Percentage(BFS)")
+        plt.axis([0, 50, 0, 10])
         plt.show()
